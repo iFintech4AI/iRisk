@@ -1,8 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import roc_auc_score, precision_score, recall_score, accuracy_score, f1_score, roc_curve, auc, \
-    classification_report
+from sklearn.metrics import roc_auc_score
 from sklearn.ensemble import RandomForestClassifier
 import torch
 import torch.nn as nn
@@ -281,32 +280,8 @@ def train_one_fold(seed=42):
             recon_x += list(recon_x_.cpu().numpy())
         y_pred = rf.predict(recon_x)
     roc_auc = roc_auc_score(y_test, y_pred)
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred)
-    recall = recall_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred)
 
     print(f'ROC AUC: {roc_auc}')
-    print(f'Accuracy: {accuracy}')
-    print(f'Precision: {precision}')
-    print(f'Recall: {recall}')
-    print(f'F1 Score: {f1}')
-
-    rf = RandomForestClassifier()
-    rf.fit(X_train, y_train)
-    y_pred = rf.predict(X_test)
-
-    roc_auc = roc_auc_score(y_test, y_pred)
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred)
-    recall = recall_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred)
-
-    print(f'ROC AUC: {roc_auc}')
-    print(f'Accuracy: {accuracy}')
-    print(f'Precision: {precision}')
-    print(f'Recall: {recall}')
-    print(f'F1 Score: {f1}')
 
 
 if __name__ == '__main__':
